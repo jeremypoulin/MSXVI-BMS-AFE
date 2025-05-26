@@ -1,4 +1,4 @@
-# MSXVI AFE Research
+# MSXVI AFE Design
 
 ![EE_Architecture](media/EE_Architecture.png)
 
