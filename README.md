@@ -28,7 +28,7 @@
 
 \*Datasheets linked to components
 
-![IC_chart](IC_chart.png)
+![IC_chart](media/IC_chart.png)
 
 Will approach this design (tentatively) using the ADBMS1818
 
@@ -48,8 +48,8 @@ Final considerations:
 \- Do we need an LED to indicate balancing? This would require adding 2 components on each line (36 more components… likely 0402… yikes. Especially with the RC filter already adding 2 components per line). I don’t think the convenience of an LED is worth the space.  
 \- Fuses\! Need to fuse at \_\_\_mA.
 
-![RC_1](RC_1.png)
-![RC_2](RC_2.png)
+![RC_1](media/RC_1.png)
+![RC_2](media/RC_2.png)
 
 ## isoSPI prep
 
@@ -70,6 +70,8 @@ This transformer matches the specs of the recommended ones, but is smaller:
 [https://www.lcsc.com/datasheet/lcsc\_datasheet\_2410122041\_CND-tek-MA021G00\_C19724713.pdf](https://www.lcsc.com/datasheet/lcsc_datasheet_2410122041_CND-tek-MA021G00_C19724713.pdf) 
 
 “Select IB and K (signal amplitude VA to receiver comparator threshold ratio) according to the application: ► For lower power links: IB \= 0.5 mA and K \= 0.5. ► For full power links: IB \= 1 mA and K \= 0.5. ► For long links (\>50m): IB \= 1 mA and K \= 0.25. For applications with little system noise, setting IB to 0.5 mA is a good compromise between power consumption and noise immunity. Using this IB setting with a 1:1 transformer and RM \= 100 Ω, RB1 must be set to 3.01 k, and RB2 set to 1 kΩ.”
+
+![Transformers](media/Transformers.png)
 
 ## Regulator
 
