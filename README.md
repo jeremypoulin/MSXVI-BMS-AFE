@@ -1,5 +1,7 @@
 # MSXVI AFE Research
 
+![EE_Architecture](media/EE_Architecture.png)
+
 ## Goals
 
 * Condense the MSXV design  
