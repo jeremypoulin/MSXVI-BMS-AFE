@@ -127,4 +127,7 @@ Therm and gnd pins in order on the bottom side, notch empty
 
 Idea:
 
+![NGFF_1](media/NGFF_1.png)
+![NGFF_2](media/NGFF_2.png)
+
 ^This layout will work for both 12s and 18s variations, but we are going to use 18s
