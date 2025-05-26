@@ -117,9 +117,48 @@ One more thing to consider: ipc standards \-\> must follow below:
 Likely qualifies as B4? Maybe B2. Doesn’t really matter \-\> focus on layout  
 So another chart:
 
-| Pin | Max voltage (\~) relative to Vbat- |
-| :---- | :---- |
-| Cell\_0 Cell\_1 Cell\_2 Cell\_3 Cell\_4 Cell\_5 Cell\_6 Cell\_7 Cell\_8 Cell\_9 Cell\_10 Cell\_11 Cell\_12 Cell\_13 Cell\_14 Cell\_15 Cell\_16 Cell\_17 Cell\_18 Therm\_1 ThermGnd\_1 Therm\_2 ThermGnd\_2 Therm\_3 ThermGnd\_3 Therm\_4 ThermGnd\_4 Therm\_5 ThermGnd\_5 Therm\_6 ThermGnd\_6 Therm\_7 ThermGnd\_7 Therm\_8 ThermGnd\_8 Therm\_9 ThermGnd\_9 IsoSPI+ IsoSPI- | 0 4.25 8.5 12.75 17 21.25 25.5 29.75 34 38.25 42.5 46.75 51 55.25 59.5 63.75 68 72.25 76.5 3 0 3 0 3 0 3 0 3 0 3 0 3 0 3 0 3 0 Between 0 and 5 Between 0 and 5 |
+| Pin            | Max voltage (~) relative to Vbat- |
+|----------------|------------------------------------|
+| Cell_0         | 0                                  |
+| Cell_1         | 4.25                               |
+| Cell_2         | 8.5                                |
+| Cell_3         | 12.75                              |
+| Cell_4         | 17                                 |
+| Cell_5         | 21.25                              |
+| Cell_6         | 25.5                               |
+| Cell_7         | 29.75                              |
+| Cell_8         | 34                                 |
+| Cell_9         | 38.25                              |
+| Cell_10        | 42.5                               |
+| Cell_11        | 46.75                              |
+| Cell_12        | 51                                 |
+| Cell_13        | 55.25                              |
+| Cell_14        | 59.5                               |
+| Cell_15        | 63.75                              |
+| Cell_16        | 68                                 |
+| Cell_17        | 72.25                              |
+| Cell_18        | 76.5                               |
+| Therm_1        | 3                                  |
+| ThermGnd_1     | 0                                  |
+| Therm_2        | 3                                  |
+| ThermGnd_2     | 0                                  |
+| Therm_3        | 3                                  |
+| ThermGnd_3     | 0                                  |
+| Therm_4        | 3                                  |
+| ThermGnd_4     | 0                                  |
+| Therm_5        | 3                                  |
+| ThermGnd_5     | 0                                  |
+| Therm_6        | 3                                  |
+| ThermGnd_6     | 0                                  |
+| Therm_7        | 3                                  |
+| ThermGnd_7     | 0                                  |
+| Therm_8        | 3                                  |
+| ThermGnd_8     | 0                                  |
+| Therm_9        | 3                                  |
+| ThermGnd_9     | 0                                  |
+| IsoSPI+        | Between 0 and 5                    |
+| IsoSPI-        | Between 0 and 5                    |
+
 
 Possible Layout:  
 Cell pins in order on top side, along with isospi on the notch  
