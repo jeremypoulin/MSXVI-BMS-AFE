@@ -28,9 +28,7 @@
 
 \*Datasheets linked to components
 
-| [LT6811](https://www.analog.com/media/en/technical-documentation/data-sheets/LTC6811-1-6811-2.pdf) | [ADBMS6815](https://www.analog.com/media/en/technical-documentation/data-sheets/adbms6815m.pdf) | [ADBMS1818](https://www.analog.com/media/en/technical-documentation/data-sheets/adbms1818.pdf) | [ADBMS6832](https://www.analog.com/media/en/technical-documentation/data-sheets/adbms6832-6833.pdf) |
-| :---- | :---- | :---- | :---- |
-| **12S:** would require 3 AFE boards daisy-chained **0.1mV error 1mbps isospi:** slower \- does this matter? **68mA discharge 100m:** not applicable **290us measurement 4uA sleep state 5 GPIO/analog:** Not a current concern, as we only require 3 GPIO and 1 analog input. Pros:  \- Already in use, would require less changes in layout/research \- smaller maximum error Cons:  \- Less options for future development, slightly slower \- lower balance current needs fets  \- slower isoSPI \- 3 boards needed | **12S 1.9mV error 2mbps isospi:** twice as fast, does this matter? **20m:** not applicable **300mA discharge:** big benefit **304us measurement 5.5uA sleep state 7 GPIO/analog:** Doesn’t provide much benefit  Not really worth looking at aside from better balancing current for a 12s system | **18S 0.167mV error 1mbps isospi:** slower \- does this matter? **100m:** not applicable **6uA sleep state 200mA discharge:** solid benefit **10 GPIO 12 analog:** Doesn’t provide much benefit  Pros:  \- higher balancing current allows for the removal of external mosfets from existing design (smaller) \- only 2 boards needed for 36s battery pack Cons: \- Larger maximum error \- slower isoSPI | **18S 0.1mV error 2mbps isospi:** twice as fast, does this matter? **20m:** not applicable **4uA sleep state 300mA discharge:** big benefit **10 GPIO 12 analog:** Doesn’t provide much benefit  Pros:  \- higher balancing current allows for the removal of external mosfets from existing design (smaller) \- faster isoSPI communication \- only 2 boards needed for 36s battery pack Cons: \- Larger maximum error \- Hard to get? |
+![IC_chart](IC_chart.png)
 
 Will approach this design (tentatively) using the ADBMS1818
 
@@ -49,6 +47,9 @@ Taking a step back and looking at the provided graphs on the next page, I believ
 Final considerations:  
 \- Do we need an LED to indicate balancing? This would require adding 2 components on each line (36 more components… likely 0402… yikes. Especially with the RC filter already adding 2 components per line). I don’t think the convenience of an LED is worth the space.  
 \- Fuses\! Need to fuse at \_\_\_mA.
+
+![RC_1](RC_1.png)
+![RC_2](RC_2.png)
 
 ## isoSPI prep
 
