@@ -112,6 +112,8 @@ Number of pins needed for 12s AFE (3 modules):
 An NGFF key will always have 67-75 pins. Either way we will be leaving some connections unused so no consideration needed there.  
 One more thing to consider: ipc standards \-\> must follow below:
 
+![IPC_1](media/IPC_1.png)
+
 Likely qualifies as B4? Maybe B2. Doesn’t really matter \-\> focus on layout  
 So another chart:
 
