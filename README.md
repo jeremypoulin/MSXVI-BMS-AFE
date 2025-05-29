@@ -1,5 +1,5 @@
 # MSXVI AFE Design
-
+![Architecture](media/Architecture.png)
 ## Goals
 
 * Condense the MSXV design  
@@ -36,15 +36,15 @@ The AFE board in our BMS system has a couple of responsibilities:
 
 [**Layout**](#layout-1)……………………………………………………………………………………………………00
 
-# Component selection {#component-selection}
+# Component selection
 
-## AFE IC {#afe-ic}
+# AFE IC
 
 \*Datasheets linked to components
-
+![IC_Chart](media/IC_Chart.png)
 Will approach this design (tentatively) using the ADBMS1818
 
-## Measure/Balance Lines {#measure/balance-lines}
+# Measure/Balance Lines
 
 The Cn and Sn pins do not require any resistor/mosfet/capacitor between themselves and the cell inputs, unlike MSXV’s design.  
 ^WRONG:
@@ -63,7 +63,10 @@ Final considerations:
 \- Do we need an LED to indicate balancing? This would require adding 2 components on each line (36 more components… likely 0402… yikes. Especially with the RC filter already adding 2 components per line). I don’t think the convenience of an LED is worth the space.  
 \- Fuses\! Need to fuse at somewhere between 250 and 500mA. We have chosen 400mA for now.
 
-## isoSPI prep {#isospi-prep}
+![RC_1](media/RC_1.png)
+![RC_2](media/RC_2.png)
+
+# isoSPI prep
 
 Capacitive coupling vs Transformer isolation  
 Transformer will take up more space but is more reliable and better suited for our application  
@@ -83,7 +86,9 @@ This transformer matches the specs of the recommended ones, but is smaller:
 
 “Select IB and K (signal amplitude VA to receiver comparator threshold ratio) according to the application: ► For lower power links: IB \= 0.5 mA and K \= 0.5. ► For full power links: IB \= 1 mA and K \= 0.5. ► For long links (\>50m): IB \= 1 mA and K \= 0.25. For applications with little system noise, setting IB to 0.5 mA is a good compromise between power consumption and noise immunity. Using this IB setting with a 1:1 transformer and RM \= 100 Ω, RB1 must be set to 3.01 k, and RB2 set to 1 kΩ.”
 
-## Regulator {#regulator}
+![Transformers](media/Transformers.png)
+
+# Regulator
 
 While it is possible to use an npn transistor to generate the 5V0 required for Vreg, it is more efficient to use a switching regulator  
 Refer to page 71 of the datasheet  
@@ -105,13 +110,13 @@ Vin \= 76.5V
 Iout \= 0.027A  
 Fsw \= 400kHz
 
-![][image1] This is a simplified formula given by the datasheet, but it is not effective for our low current application, as, using the formula, any reasonable inductance gives upwards of 1000% ripple current.
+![Ind_formula](media/Ind_formula.png) This is a simplified formula given by the datasheet, but it is not effective for our low current application, as, using the formula, any reasonable inductance gives upwards of 1000% ripple current.
 
 Input & Output capacitors: Based on formulas on the datasheet, for a 0.1V fluctuation due to switching current draw, we should include parallel capacitance on the Vin line in order to prevent major stress on the V+ supply. For this we will use a 2.2uF capacitor rated for 100V (76.5V to ground is needed). For output, see also the formulas located in the buck converter datasheet. We have chosen the recommended 22uF.
 
 A 3.3pF capacitor has been placed on the FB line to the Vout line in order to combat HF noise caused by switching and neglected by the large 1M ohm resistor. This is in accordance with the recommended application diagram on the datasheet.
 
-## Thermistors/DTEN/WDT {#thermistors/dten/wdt}
+# Thermistors/DTEN/WDT
 
 We use 10K NTC thermistors in order to get a general idea of temperature, and pause battery activity when the heat rises above a certain threshold.
 
@@ -145,7 +150,7 @@ Some things to consider:
 - Understand by regs when we need to be measuring  
 - Inductor formula?
 
-# NGFF Considerations {#ngff-considerations}
+# NGFF Considerations
 
 Taking into account 2 thermistors per module, each requiring their own ground:
 
@@ -164,29 +169,34 @@ Number of pins needed for 12s AFE (3 modules):
 An NGFF key will always have 67-75 pins. Either way we will be leaving some connections unused so no consideration needed there.  
 One more thing to consider: ipc standards \-\> must follow below:
 
+![IPC_1](media/IPC_1.png)
+
 Likely qualifies as B4? Maybe B2. Doesn’t really matter \-\> focus on layout
 
-## I/O Chart {#i/o-chart}
+# I/O Chart
 
 | Pin | Max voltage (\~) relative to V- |
 | :---- | :---- |
 | Cell\_0 Cell\_1 Cell\_2 Cell\_3 Cell\_4 Cell\_5 Cell\_6 Cell\_7 Cell\_8 Cell\_9 Cell\_10 Cell\_11 Cell\_12 Cell\_13 Cell\_14 Cell\_15 Cell\_16 Cell\_17 Cell\_18 Therm\_1 ThermGnd\_1 Therm\_2 ThermGnd\_2 Therm\_3 ThermGnd\_3 Therm\_4 ThermGnd\_4 Therm\_5 ThermGnd\_5 Therm\_6 ThermGnd\_6 Therm\_7 ThermGnd\_7 Therm\_8 ThermGnd\_8 Therm\_9 ThermGnd\_9 Therm\_10 ThermGnd\_10 Therm\_11 ThermGnd\_11 Therm\_12 ThermGnd\_12 Therm\_13 ThermGnd\_13 Therm\_14 ThermGnd\_14 Therm\_15 ThermGnd\_15 Therm\_16 ThermGnd\_6 IsoSPI+ IsoSPI- | 0 4.25 8.5 12.75 17 21.25 25.5 29.75 34 38.25 42.5 46.75 51 55.25 59.5 63.75 68 72.25 76.5 3 0 3 0 3 0 3 0 3 0 3 0 3 0 3 0 3 0 3 0 3 0 3 0 3 0 3 0 3 0 3 0 Between 0 and 5 Between 0 and 5 |
 
-## Possible Layout {#possible-layout}
+# Possible Layout
 
 Cell pins in order on top side, along with isospi on the notch  
 Therm and gnd pins in order on the bottom side, notch empty
 
 Idea:
 
+![NGFF_1](media/NGFF_1.png)
+![NGFF_2](media/NGFF_2.png)
+
 ^This layout will work for both 12s and 18s variations, but we are going to use 18s  
 NOTE: As we switched from 9 to 16 thermistor inputs per AFE, the entire underside will be populated with alternating Therm/Gnd connections, as well as some pins between the isoSPI and lower voltage cell inputs. See schematic.
 
-# Regulator Test Board {#regulator-test-board}
+# Regulator Test Board
 
 We will design a test PCB for the regulator portion of the AFE in order to verify its functionality. We’ll use the same circuit present in the AFE, but isolate it and include many test points while replacing small components with larger, more easy to manipulate parts.
 
-## Alterations {#alterations}
+# Alterations
 
 - Replace schem ports with connectors, preferably header pins or copper posts.  
 - Replace 0402s with at least 0603s (0805s)  
@@ -199,15 +209,15 @@ We will design a test PCB for the regulator portion of the AFE in order to verif
 - Add DNP Capacitors for testing different RC filter configurations  
 - Add DNP resistor to pull PG to VCC
 
-## Schematic {#schematic}
+# Schematic
 ![RT_Schem](media/RT_Schem.png)
-## Layout {#layout}
+# Layout
 ![RT_Layout](media/RT_Layout.png)
-## 3D Model
+# 3D Model
 ![RT_3D](media/RT_3D.png)
-# Layout {#layout-1}
+# Layout
 
-## MP4582
-
+# MP4582
+![Reg_LO](media/Reg_LO.png)
 - In general, make sure the “high current” path is as condensed as possible  
   
