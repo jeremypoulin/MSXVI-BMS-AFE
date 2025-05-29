@@ -19,19 +19,29 @@ The AFE board in our BMS system has a couple of responsibilities:
 ## Contents
 
 [**Component Selection**](#component-selection)
+
 [AFE IC](#afe-ic)
+
 [Measure/Balance Lines](#measure/balance-lines)
+
 [isoSPI Prep](#isospi-prep)
+
 [Regulator](#regulator)
+
 [Thermistors/DTEN/WDT](#thermistors/dten/wdt)
 
-[**NGFF Considerations**](#ngff-considerations)  
+[**NGFF Considerations**](#ngff-considerations)
+
 [I/O Chart](#i/o-chart)
+
 [Possible Layout](#possible-layout)
 
-[**Regulator Test Board**](#regulator-test-board) 
+[**Regulator Test Board**](#regulator-test-board)
+
 [Alterations](#alterations)
+
 [Schematic](#schematic)
+
 [Layout](#layout)
 
 [**Layout**](#layout-1)
