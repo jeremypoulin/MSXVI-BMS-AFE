@@ -15,7 +15,7 @@ The AFE board in our BMS system has a couple of responsibilities:
 1. Measuring and balancing battery cells: The main IC (ADBMS1818) will measure the voltages of our 36 battery cells (18 per board) through an external RC filter, compare them with one another, and using internal FETs, discharge higher voltage cells at a maximum current of 200mA in order to balance the cells. This allows the battery system to charge more efficiently, and prevents various issues. There are also methods embedded within the chip which allow us to sleep/passively monitor the battery pack via firmware (see notes on DTEN and WDT pins), previously not taken advantage of.  
 2. Sensing battery and ambient temperatures: Through the use of 32 10k ohm NTC thermistors, we can sense the temperature in each battery module, as well as at arbitrary points inside the battery box. The thermistors get biased by a 3V rail on the ADBMS1818, and sorted through by a mux controlled by GPIO. The readings are taken by an ADC in the 1818\.  
 3. Communicating with sibling and master modules: The two AFE boards are daisy-chained, with the first being connected to the master module (BMS carrier) on the rear controller. All of these boards communicate with one another using a differential 2-wire system: isoSPI. The AFE’s connect to the combinator board in the battery box via an NGFF plug and key, and the combinator board relays signals between the rear controller and the attached AFE’s.
-<p align=center>
+
 ## Contents
 
 [**Component Selection**](#component-selection)
@@ -35,7 +35,7 @@ The AFE board in our BMS system has a couple of responsibilities:
 [Layout](#layout)
 
 [**Layout**](#layout-1)
-</p>
+
 # Component selection
 
 # AFE IC
