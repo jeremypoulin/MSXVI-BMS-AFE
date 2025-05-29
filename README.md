@@ -15,27 +15,27 @@ The AFE board in our BMS system has a couple of responsibilities:
 1. Measuring and balancing battery cells: The main IC (ADBMS1818) will measure the voltages of our 36 battery cells (18 per board) through an external RC filter, compare them with one another, and using internal FETs, discharge higher voltage cells at a maximum current of 200mA in order to balance the cells. This allows the battery system to charge more efficiently, and prevents various issues. There are also methods embedded within the chip which allow us to sleep/passively monitor the battery pack via firmware (see notes on DTEN and WDT pins), previously not taken advantage of.  
 2. Sensing battery and ambient temperatures: Through the use of 32 10k ohm NTC thermistors, we can sense the temperature in each battery module, as well as at arbitrary points inside the battery box. The thermistors get biased by a 3V rail on the ADBMS1818, and sorted through by a mux controlled by GPIO. The readings are taken by an ADC in the 1818\.  
 3. Communicating with sibling and master modules: The two AFE boards are daisy-chained, with the first being connected to the master module (BMS carrier) on the rear controller. All of these boards communicate with one another using a differential 2-wire system: isoSPI. The AFE’s connect to the combinator board in the battery box via an NGFF plug and key, and the combinator board relays signals between the rear controller and the attached AFE’s.
-
+<p align=center>
 ## Contents
 
-[**Component Selection**](#component-selection)…………………………………………………………………………………00  
-[AFE IC](#afe-ic)……………………………………………………………………………………………………00  
-[Measure/Balance Lines](#measure/balance-lines)…………………………………………………………………………………00  
-[isoSPI Prep](#isospi-prep)………………………………………………………………………………………………00  
-[Regulator](#regulator)…………………………………………………………………………………………………00  
-[Thermistors/DTEN/WDT](#thermistors/dten/wdt)…………..……………………………………………………………………00
+[**Component Selection**](#component-selection)
+[AFE IC](#afe-ic)
+[Measure/Balance Lines](#measure/balance-lines)
+[isoSPI Prep](#isospi-prep)
+[Regulator](#regulator)
+[Thermistors/DTEN/WDT](#thermistors/dten/wdt)
 
-[**NGFF Considerations**](#ngff-considerations)…………………………………………………………………………………00  
-[I/O Chart](#i/o-chart)……………………………………….…………………………………………………………00  
-[Possible Layout](#possible-layout)…………….……………………………………………………………………………00
+[**NGFF Considerations**](#ngff-considerations)  
+[I/O Chart](#i/o-chart)
+[Possible Layout](#possible-layout)
 
-[**Regulator Test Board**](#regulator-test-board)……….…………………………………………………………………………00  
-[Alterations](#alterations)……….……………………………………….………………………………………………00  
-[Schematic](#schematic)……….……………….………………………………………………………………………00  
-[Layout](#layout)………………………….…………………………………………………………………………00
+[**Regulator Test Board**](#regulator-test-board) 
+[Alterations](#alterations)
+[Schematic](#schematic)
+[Layout](#layout)
 
-[**Layout**](#layout-1)……………………………………………………………………………………………………00
-
+[**Layout**](#layout-1)
+</p>
 # Component selection
 
 # AFE IC
@@ -175,9 +175,61 @@ Likely qualifies as B4? Maybe B2. Doesn’t really matter \-\> focus on layout
 
 # I/O Chart
 
-| Pin | Max voltage (\~) relative to V- |
-| :---- | :---- |
-| Cell\_0 Cell\_1 Cell\_2 Cell\_3 Cell\_4 Cell\_5 Cell\_6 Cell\_7 Cell\_8 Cell\_9 Cell\_10 Cell\_11 Cell\_12 Cell\_13 Cell\_14 Cell\_15 Cell\_16 Cell\_17 Cell\_18 Therm\_1 ThermGnd\_1 Therm\_2 ThermGnd\_2 Therm\_3 ThermGnd\_3 Therm\_4 ThermGnd\_4 Therm\_5 ThermGnd\_5 Therm\_6 ThermGnd\_6 Therm\_7 ThermGnd\_7 Therm\_8 ThermGnd\_8 Therm\_9 ThermGnd\_9 Therm\_10 ThermGnd\_10 Therm\_11 ThermGnd\_11 Therm\_12 ThermGnd\_12 Therm\_13 ThermGnd\_13 Therm\_14 ThermGnd\_14 Therm\_15 ThermGnd\_15 Therm\_16 ThermGnd\_6 IsoSPI+ IsoSPI- | 0 4.25 8.5 12.75 17 21.25 25.5 29.75 34 38.25 42.5 46.75 51 55.25 59.5 63.75 68 72.25 76.5 3 0 3 0 3 0 3 0 3 0 3 0 3 0 3 0 3 0 3 0 3 0 3 0 3 0 3 0 3 0 3 0 Between 0 and 5 Between 0 and 5 |
+| Pin           | Max Voltage (≈) Relative to V- |
+|---------------|----------------------------------|
+| Cell_0        | 0 V                              |
+| Cell_1        | 4.25 V                           |
+| Cell_2        | 8.5 V                            |
+| Cell_3        | 12.75 V                          |
+| Cell_4        | 17 V                             |
+| Cell_5        | 21.25 V                          |
+| Cell_6        | 25.5 V                           |
+| Cell_7        | 29.75 V                          |
+| Cell_8        | 34 V                             |
+| Cell_9        | 38.25 V                          |
+| Cell_10       | 42.5 V                           |
+| Cell_11       | 46.75 V                          |
+| Cell_12       | 51 V                             |
+| Cell_13       | 55.25 V                          |
+| Cell_14       | 59.5 V                           |
+| Cell_15       | 63.75 V                          |
+| Cell_16       | 68 V                             |
+| Cell_17       | 72.25 V                          |
+| Cell_18       | 76.5 V                           |
+| Therm_1       | 3 V                              |
+| ThermGnd_1    | 0 V                              |
+| Therm_2       | 3 V                              |
+| ThermGnd_2    | 0 V                              |
+| Therm_3       | 3 V                              |
+| ThermGnd_3    | 0 V                              |
+| Therm_4       | 3 V                              |
+| ThermGnd_4    | 0 V                              |
+| Therm_5       | 3 V                              |
+| ThermGnd_5    | 0 V                              |
+| Therm_6       | 3 V                              |
+| ThermGnd_6    | 0 V                              |
+| Therm_7       | 3 V                              |
+| ThermGnd_7    | 0 V                              |
+| Therm_8       | 3 V                              |
+| ThermGnd_8    | 0 V                              |
+| Therm_9       | 3 V                              |
+| ThermGnd_9    | 0 V                              |
+| Therm_10      | 3 V                              |
+| ThermGnd_10   | 0 V                              |
+| Therm_11      | 3 V                              |
+| ThermGnd_11   | 0 V                              |
+| Therm_12      | 3 V                              |
+| ThermGnd_12   | 0 V                              |
+| Therm_13      | 3 V                              |
+| ThermGnd_13   | 0 V                              |
+| Therm_14      | 3 V                              |
+| ThermGnd_14   | 0 V                              |
+| Therm_15      | 3 V                              |
+| ThermGnd_15   | 0 V                              |
+| Therm_16      | 3 V                              |
+| ThermGnd_6    | 0 V                              |
+| IsoSPI+
+
 
 # Possible Layout
 
