@@ -73,7 +73,7 @@ The AFE board in our BMS system has a couple of responsibilities:
 [Balance Lines](#balance-lines)
 
 ## Links
-[Github](https://github.com/jeremypoulin/MSXVI-BMS-AFE)  
+[Docs](https://docs.google.com/document/d/10tVF-HHXZznOAiI3LTjYB9GgmXYDa2oydIqfA1RCnH0/edit?usp=sharing)
 [Altium](https://university-of-waterloo-solar-car-team.365.altium.com/designs/544CD16C-370F-4F2F-993F-E860E0914D96?variant=[No+Variations]&activeDocumentId=BMS_AFE.PcbDoc&activeView=3D&location=[3,41.33,29,0.07,41.33,29,-51.74,0,1,0]#design)  
 [Confluence](https://uwmidsun.atlassian.net/wiki/spaces/ELEC/pages/4166713349/Analog+Front+End+MS16)
 
