@@ -48,6 +48,26 @@ The AFE board in our BMS system has a couple of responsibilities:
 
 [**Layout**](#layout-1)
 
+# Design
+
+## External Architecture
+
+## Top Sheet
+
+## AFE IC
+
+## Connectors
+
+## Regulator
+
+## Layout
+
+## 3D Model
+
+## Bill of Materials
+
+[Link to Spreadsheet](https://docs.google.com/spreadsheets/d/1oPkCh2J2IVgju8AG5fWNMNWFo74rBqJftM4ZnSj-AQ4/edit?usp=sharing) 
+
 # Component Selection
 
 # AFE IC
@@ -275,9 +295,9 @@ We will design a test PCB for the regulator portion of the AFE in order to verif
 ![RT_Layout](media/RT_Layout.png)
 # 3D Model
 ![RT_3D](media/RT_3D.png)
-# Layout {#layout-2}
+# Layout
 
-## Overview {#overview}
+## Overview
 
 While this layout would likely be best executed on a larger board, or a board with more layers, due to the limits imposed upon us by our desired NGFF connection and cheap manufacturing, this board is constrained to 30mm x 80mm of area, single sided and 2 layer design. This complicates trace routing, but is doable and would not present a significant enough performance decrease to justify a large boost in spending.
 
@@ -285,17 +305,17 @@ While this layout would likely be best executed on a larger board, or a board wi
 - Pads should not be right beside traces. Reduce the amount of traces routed immediately beside pads, as this could cause manufacturing issues  
 - Ensure a minimal return path to V- all across the board, using vias and both layers
 
-## MP4582 {#mp4582}
+## MP4582
 
 - In general, make sure the “high current” path is as condensed as possible  
 - Expand traces for the higher current paths
 
-## ADBMS1818 {#adbms1818}
+## ADBMS1818
 
 - Make sure transformers are as close as possible to the connector, as far as possible from the ADBMS1818, and are isolated from adjacent ground planes and other traces.  
 - Ensure RC filtering of C lines are as close to the IC as possible
 
-## Balance Lines {#balance-lines}
+## Balance Lines
 
 - Ensure the current path is as tight as possible. This is the highest current path by far of the entire PCB. This means placing them close to the connector, one next to the other (heatsink?) and routing efficiently/with at least 0.2mm traces. 
   
