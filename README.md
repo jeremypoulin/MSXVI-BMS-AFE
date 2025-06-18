@@ -2,7 +2,8 @@
 ## Goals
 
 * Condense the MSXV design  
-* Switch from pin header connectors to an NGFF key connection  
+* Switch from pin header connectors to an NGFF key connection
+* Optimize for factory assembly
 * Increase thermistor count  
 * Increase balance current  
 * Optimize thermal performance  
