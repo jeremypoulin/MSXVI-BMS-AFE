@@ -1,5 +1,4 @@
 # MSXVI AFE Design
-![EE_Architecture](media/EE_Architecture.png)
 ## Goals
 
 * Condense the MSXV design  
@@ -73,24 +72,29 @@ The AFE board in our BMS system has a couple of responsibilities:
 
 [Balance Lines](#balance-lines)
 
+## Links
+[Github](https://github.com/jeremypoulin/MSXVI-BMS-AFE)  
+[Altium](https://university-of-waterloo-solar-car-team.365.altium.com/designs/544CD16C-370F-4F2F-993F-E860E0914D96?variant=[No+Variations]&activeDocumentId=BMS_AFE.PcbDoc&activeView=3D&location=[3,41.33,29,0.07,41.33,29,-51.74,0,1,0]#design)  
+[Confluence](https://uwmidsun.atlassian.net/wiki/spaces/ELEC/pages/4166713349/Analog+Front+End+MS16)
+
 # Design
 
 ## External Architecture
-
+![EE_Architecture](media/EE_Architecture.png)
 ## Top Sheet
-
+![Top](media/Top.png)
 ## AFE IC
-
+![AFE](media/AFE.png)
 ## Connectors
-
+![Connectors](media/Connectors.png)
 ## Regulator
-
+![Regulator](media/Regulator.png)
 ## Layout
-
+![Layout](media/Layout.png)
 ## 3D Model
-
+![3D](media/3D.png)
 ## Bill of Materials
-
+![Bom](media/Bom.png)
 [Link to Spreadsheet](https://docs.google.com/spreadsheets/d/1oPkCh2J2IVgju8AG5fWNMNWFo74rBqJftM4ZnSj-AQ4/edit?usp=sharing) 
 
 # Component Selection
@@ -317,9 +321,9 @@ We will design a test PCB for the regulator portion of the AFE in order to verif
 # Schematic
 ![RT_Schem](media/RT_Schem.png)
 # Layout
-![RT_Layout](media/RT_Layout.png)
+![RT_Layout](media/RegLayNew.png)
 # 3D Model
-![RT_3D](media/RT_3D.png)
+![RT_3D](media/Reg3DNew.png)
 # Layout
 
 ## Overview
@@ -331,12 +335,12 @@ While this layout would likely be best executed on a larger board, or a board wi
 - Ensure a minimal return path to V- all across the board, using vias and both layers
 
 ## MP4582
-
+![MP4582](media/MP4582.png)
 - In general, make sure the “high current” path is as condensed as possible  
 - Expand traces for the higher current paths
 
 ## ADBMS1818
-
+![ADBMS1818](media/ADBMS1818.png)
 - Make sure transformers are as close as possible to the connector, as far as possible from the ADBMS1818, and are isolated from adjacent ground planes and other traces.  
 - Ensure RC filtering of C lines are as close to the IC as possible
 
