@@ -5,6 +5,8 @@
 * Condense the MSXV design  
 * Switch from pin header connectors to an NGFF key connection  
 * Increase thermistor count  
+* Increase balance current  
+* Optimize thermal performance  
 * Utilize proper state transitioning  
 * General optimizations
 
@@ -46,7 +48,7 @@ The AFE board in our BMS system has a couple of responsibilities:
 
 [**Layout**](#layout-1)
 
-# Component selection
+# Component Selection
 
 # AFE IC
 
@@ -69,9 +71,9 @@ According to the datasheet and many other sources such as [this](https://communi
 
 Taking a step back and looking at the provided graphs on the next page, I believe that a 10nF capacitor would pair best with a 100 ohm resistor in order to minimize measurement error in voltage and GPIO. Due to the nature of our application, only one filter type should be needed (we could likely get away with no filter, but I believe the space trade off is worth it). Differential filtering (between lines, not from lines to ground) appears to be the most effective method of filtering, although both would work fine. So, a 10nF cap with a 25V rating would be effective enough. This can likely be 0402 package.
 
-Final considerations:  
-\- Do we need an LED to indicate balancing? This would require adding 2 components on each line (36 more components… likely 0402… yikes. Especially with the RC filter already adding 2 components per line). I don’t think the convenience of an LED is worth the space.  
-\- Fuses\! Need to fuse at somewhere between 250 and 500mA. We have chosen 400mA for now.
+Big issue… the current idea does not work as it causes the lower battery RC filter resistor to be in series with the balance line when the internal S pin MOSFET is activated. Turns out we will need external MOSFETS after all… For this we have chosen an SOT-723 package with a low on resistance at a gate to source voltage of 2.5V (taken from the ADBMS1818 datasheet). This will allow us to route the balancing line straight from the positive node of the cell to the negative, when the S pin is low (connected to the negative node via the internal MOSFET).
+
+Now that that’s sorted, let’s put some LEDs in parallel with the new balance line, allowing for indication of which cell is balancing at any given moment. For this we need an LED in series with a current limiting resistor (3.3k ohm chosen). Both will be 0402\.
 
 ![RC_1](media/RC_1.png)
 ![RC_2](media/RC_2.png)
@@ -114,7 +116,7 @@ We are going to go with the MP4582 100V buck converter due to the parts being fr
 
 Inductor: Based on formulas and information provided by the MP4582 Datasheet, we selected a 33uH inductor rated for saturation at 440mA. This is enough as the largest current it could face is approximately 240mA. Larger the inductor, better (smaller) the ripple current.
 
-Calculations:  
+For calculations:  
 Vout \= 5V  
 Vin \= 76.5V  
 Iout \= 0.027A  
@@ -154,11 +156,7 @@ We can simplify the above idea by using a 5V tolerant GPIO pin (GPIO 9), driven 
 
 Note: the WDT pin must be left floating or pulled up to Vreg through a 1M ohm resistor for the watchdog timer to be configurable through firmware. It is undesirable to leave pins floating for many reasons involving EMI and uncontrolled pin voltage, so I’ll tie the pin up to the 5V rail.
 
-Some things to consider:
-
-- Understand current drive sleeping  
-- Understand by regs when we need to be measuring  
-- Inductor formula?
+In order to monitor the cell balancing network’s temperature, we will put another 10k NTC onboard (SMD 0402 package). For this, we selected the Murata NCP15XH103F03RC, which is available in string, leaded and SMD form factors to simplify firmware’s temperature interpretation formulas. It is placed as close to the balancing network as possible, right underneath the balance resistors, and gets routed to a separate GPIO pin from the main thermistor network.
 
 # NGFF Considerations
 
@@ -237,7 +235,7 @@ Likely qualifies as B4? Maybe B2. Doesn’t really matter \-\> focus on layout
 | Therm_15      | 3 V                              |
 | ThermGnd_15   | 0 V                              |
 | Therm_16      | 3 V                              |
-| ThermGnd_6    | 0 V                              |
+| ThermGnd_16   | 0 V                              |
 | IsoSPI+
 
 
@@ -252,7 +250,7 @@ Idea:
 ![NGFF_2](media/NGFF_2.png)
 
 ^This layout will work for both 12s and 18s variations, but we are going to use 18s  
-NOTE: As we switched from 9 to 16 thermistor inputs per AFE, the entire underside will be populated with alternating Therm/Gnd connections, as well as some pins between the isoSPI and lower voltage cell inputs. See schematic.
+NOTE: As we switched from 9 to 16 thermistor inputs per AFE, the entire underside will be populated with alternating Therm/Gnd connections, as well as some pins between the isoSPI and lower voltage cell inputs. See schematic… Due to the nature of the layout, this idea has been altered to accommodate for more direct routing, while staying conscious of the potential difference across adjacent pads. See schematic and layout for pin assignments. The finalized layout is very similar to the proposal above, with some slight changes to the thermistor/gnd pins.
 
 # Regulator Test Board
 
@@ -277,9 +275,27 @@ We will design a test PCB for the regulator portion of the AFE in order to verif
 ![RT_Layout](media/RT_Layout.png)
 # 3D Model
 ![RT_3D](media/RT_3D.png)
-# Layout
+# Layout {#layout-2}
 
-# MP4582
-![Reg_LO](media/Reg_LO.png)
+## Overview {#overview}
+
+While this layout would likely be best executed on a larger board, or a board with more layers, due to the limits imposed upon us by our desired NGFF connection and cheap manufacturing, this board is constrained to 30mm x 80mm of area, single sided and 2 layer design. This complicates trace routing, but is doable and would not present a significant enough performance decrease to justify a large boost in spending.
+
+- Ensure that traces are at least 0.2mm from the edges of the board. This is double the recommended spec listed for JLC economic assembly  
+- Pads should not be right beside traces. Reduce the amount of traces routed immediately beside pads, as this could cause manufacturing issues  
+- Ensure a minimal return path to V- all across the board, using vias and both layers
+
+## MP4582 {#mp4582}
+
 - In general, make sure the “high current” path is as condensed as possible  
+- Expand traces for the higher current paths
+
+## ADBMS1818 {#adbms1818}
+
+- Make sure transformers are as close as possible to the connector, as far as possible from the ADBMS1818, and are isolated from adjacent ground planes and other traces.  
+- Ensure RC filtering of C lines are as close to the IC as possible
+
+## Balance Lines {#balance-lines}
+
+- Ensure the current path is as tight as possible. This is the highest current path by far of the entire PCB. This means placing them close to the connector, one next to the other (heatsink?) and routing efficiently/with at least 0.2mm traces. 
   
