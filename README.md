@@ -304,7 +304,8 @@ NOTE: As we switched from 9 to 16 thermistor inputs per AFE, the entire undersid
 
 # Regulator Test Board
 
-We will design a test PCB for the regulator portion of the AFE in order to verify its functionality. We’ll use the same circuit present in the AFE, but isolate it and include many test points while replacing small components with larger, more easy to manipulate parts.
+We will design a test PCB for the regulator portion of the AFE in order to verify its functionality. We’ll use the same circuit present in the AFE, but isolate it and include many test points while replacing small components with larger, more easy to manipulate parts.  
+[Regulator Testing](https://docs.google.com/document/d/1izWtIO584cmW1-A0-uNx3t-gpRHs0d15RXw3eTLbgqQ/edit?usp=sharing)
 
 # Alterations
 
