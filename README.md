@@ -340,7 +340,7 @@ While this layout would likely be best executed on a larger board, or a board wi
 - Expand traces for the higher current paths
 
 ## ADBMS1818
-![isoLay](media/isoLAY.png)
+![isoLay](media/isoLay.png)
 - Make sure transformers are as close as possible to the connector, as far as possible from the ADBMS1818, and are isolated from adjacent ground planes and other traces.  
 - Ensure RC filtering of C lines are as close to the IC as possible
 
