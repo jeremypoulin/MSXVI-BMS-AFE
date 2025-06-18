@@ -19,10 +19,27 @@ The AFE board in our BMS system has a couple of responsibilities:
 3. Communicating with sibling and master modules: The two AFE boards are daisy-chained, with the first being connected to the master module (BMS carrier) on the rear controller. All of these boards communicate with one another using a differential 2-wire system: isoSPI. The AFE’s connect to the combinator board in the battery box via an NGFF plug and key, and the combinator board relays signals between the rear controller and the attached AFE’s.
 
 ## Contents
+[**Design**](#design)
+
+[External Architecture](#external-architecture)
+
+[Top Sheet](#top-sheet)
+
+[AFE IC](#afe-ic)
+
+[Connectors](#connectors)
+
+[Regulator](#regulator)
+
+[Layout](#layout)
+
+[3D Model](#3d-model)
+
+[Bill of Materials](#bill-of-materials)
 
 [**Component Selection**](#component-selection)
 
-[AFE IC](#afe-ic)
+[AFE IC](#afe-ic-1)
 
 [Measure/Balance Lines](#measure/balance-lines)
 
@@ -44,9 +61,17 @@ The AFE board in our BMS system has a couple of responsibilities:
 
 [Schematic](#schematic)
 
-[Layout](#layout)
+[Layout](#layout-1)
 
-[**Layout**](#layout-1)
+[**Layout**](#layout-2)
+
+[Overview](#overview-1)
+
+[MP4582](#mp4582)
+
+[ADBMS1818](#adbms1818)
+
+[Balance Lines](#balance-lines)
 
 # Design
 
