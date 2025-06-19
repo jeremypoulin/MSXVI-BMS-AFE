@@ -104,7 +104,7 @@ The AFE board in our BMS system has a couple of responsibilities:
 
 \*Datasheets linked to components
 ![IC_chart](media/IC_chart.png)  
-Will approach this design (tentatively) using the ADBMS1818
+Will approach this design using the ADBMS1818
 
 # Measure/Balance Lines
 
